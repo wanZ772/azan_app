@@ -1,0 +1,313 @@
+<html>
+	<head>
+		<title>
+			Azan
+		</title>
+		<script src="https://kit.fontawesome.com/286587f19c.js" crossorigin="anonymous"></script>
+	</head>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@700&display=swap');
+		
+		
+		
+		html
+			{
+				background-image: url('wallpaper.jpg');
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-color: gray;
+				color: white;
+			}
+		#get_clock
+			{
+				font-size: 70px;
+				font-family: 'Big Shoulders Stencil Text', cursive;
+				text-shadow: 0px 0px 5px black;
+			}
+		#box1
+			{
+				margin-left: -140px;
+			}
+		#box2
+			{
+				margin-left: 140px;
+			}
+		.box
+			{
+				position: absolute;
+				left: 50%;
+				transform: translate(-50%);			
+				padding-top: 10px;
+				color: black;
+				font-size: 25px;
+				text-align: center;
+				height: 90px;
+				width: 240px;
+				font-family: 'Big Shoulders Stencil Text', cursive;
+				background-color: rgba(255,255,255, 0.6);
+				color: black;
+			}
+		#icon
+			{
+				font-size: 40px;
+				padding-top: 10px;
+			}
+		.text_style
+			{
+				padding-bottom: 50px;
+			}
+		.pray_time
+			{
+				text-align: center;
+				position: relative;
+				float: left;
+				left: 12.5%;
+				margin: 20px;
+				top: 10%;
+				transform: translate(-50%);
+				height: 150px;
+				width: 150px;
+				color: black;
+				background-color: white;
+				border: solid 1px black;
+				font-size: 35px;
+				font-family: 'Big Shoulders Stencil Text',  cursive;
+			}
+		#time_icon
+			{
+				margin-top: 10px;
+			}
+		#time_image
+			{
+				margin-top: 10px;
+				width: 40px;
+			}
+			
+		
+		#more_option:checked ~ #option_icon
+			{
+				left: 51%;
+				transition: all 1s;
+			}
+		#more_option:checked ~ .option_box
+			{
+				visibility: visible;
+				width: 50%;
+				transition: all 1s;
+				
+			}
+		#option_icon
+			{
+				left: 1%;
+				color: white;
+				font-size: 50px;
+				position: absolute;
+				transition: all 1s;
+			}
+		.option_box
+			{
+				z-index: 1;
+				visibility: hidden;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 0%;
+				height: 100%;
+				background-color: rgba(0,0,0,0.6);
+				transition: all 1s;
+			}
+		ul	li
+			{
+				list-style: none;
+				font-family: 'Big Shoulders Stencil Text', cursive;
+				font-size: 40px;
+				text-align: center;
+				margin: 50px;
+				background-color: white;
+				color: black;
+			}
+		li:hover
+			{
+				background-color: tomato;
+				cursor: pointer;
+			}
+		.about_developer
+			{
+				visibility: var(--developer_info);
+				position: absolute;
+				z-index: 4;
+				background-color: rgba(0,0,0, 0.8);
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+		.developer_info
+			{
+				background-color: tomato;
+				width: 50%;
+				height: 50%;
+				position: relative;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				font-family: 'Big Shoulders Stencil Text', cursive;
+				font-size: 50px;
+			}
+		#developer_info p
+			{
+				text-align: center;
+			}
+		#developer_info p i
+			{
+				cursor: pointer;
+			}
+		#close_info_icon
+			{
+				position: absolute;
+				right: 0;
+				top: -5;
+				cursor: pointer;
+			}
+		@media screen and (orientation:portrait)
+		{
+			.pray_time
+				{
+					padding: 50px;
+					justify-contentL center;
+				}
+			ul li
+				{
+					padding: 50px;
+				}
+			
+			.developer_info
+				{
+					height: 30%;
+					width: 80%;
+				}
+			#developer_info p
+				{
+					margin-top: 50px;
+					font-size: 70px;
+				}
+		}
+	</style>
+	<script>
+		var page = document.documentElement;
+		var mask = 'https://cors-anywhere.herokuapp.com/';
+		var selangor_api = 'https://api.azanpro.com/times/today.json?zone=sgr02&format=24-hour';
+		
+		
+		page.style.setProperty('--developer_info', 'hidden');
+		
+		function	show_about_developer()
+			{
+				page.style.setProperty('--developer_info', 'visible');
+			}
+		function	close_developer_info()
+			{
+				page.style.setProperty('--developer_info', 'hidden');
+				
+			}
+		function	visit_youtube()
+			{
+				window.open('https://www.youtube.com/c/MuhammadNajwan');
+			}
+		function	visit_instagram()
+			{
+				window.open('https://www.instagram.com/wan.__________');
+			}
+		
+		function	get_data()
+			{
+				var get_time = new Date();
+				fetch(mask + selangor_api)
+					.then(today => today.json())
+						.then(data =>
+								{
+									document.getElementById('get_location') . innerHTML = data['locations'][0];
+									document.getElementById('get_date') . innerHTML = data['prayer_times']['date'];
+									document.getElementById('get_imsak') . innerHTML =  "Imsa': <br>" + data['prayer_times']['imsak'] + "<br> <i id='time_icon' class='fas fa-coffee'></i>";
+									document.getElementById('get_subuh') . innerHTML =  "Subuh: <br>" + data['prayer_times']['subuh'] + "<br> <img id='time_image' src='https://www.flaticon.com/svg/static/icons/svg/678/678301.svg'></img>";
+									document.getElementById('get_zuhur') . innerHTML =  "Zohor: <br>" + data['prayer_times']['zohor'] + "<br> <i id='time_icon' class='fas fa-sun'></i>";
+									document.getElementById('get_asar') . innerHTML =  "Asar: <br>" + data['prayer_times']['asar'] + "<br> <i id='time_icon' class='fas fa-cloud-sun'></i>";
+									document.getElementById('get_maghrib') . innerHTML =  "Maghrib: <br>" + data['prayer_times']['maghrib'] + "<br> <img id='time_image' src='https://www.flaticon.com/svg/static/icons/svg/1582/1582749.svg'></img>";
+									document.getElementById('get_isha') . innerHTML =  "Isha': <br>" + data['prayer_times']['isyak'] + "<br> <i id='time_icon' class='fas fa-cloud-moon'></i>";
+								}
+							);
+				document.getElementById('get_clock') . innerHTML = get_time.getHours() + " : " + get_time.getMinutes() + " : " + get_time.getSeconds();
+				
+				<!-- console.log(get_time.getSeconds()); -->
+				setTimeout(get_data, 1000);
+			}
+	</script>
+	<body onload='get_data()'>
+		<h1>Azan V2020.2.7</h1>
+		<hr>
+		<div id='about_developer' class='about_developer'>
+			<div id='developer_info' class='developer_info'>
+			<i id='close_info_icon' class="far fa-window-close" onclick='close_developer_info()'></i>
+				<p>Name: Wan - Z</p>
+				<p>Status: Single & Available</p>
+				<p>Follow Me On:
+					<i  class="fab fa-youtube" onclick='visit_youtube()'></i>
+					<i  class="fab fa-instagram" onclick='visit_instagram()'></i>
+				</p>
+			</div>
+		</div>
+		<label for='more_option'>
+			<input hidden='true' type='checkbox' id='more_option'></input>
+			<i id='option_icon' class="fas fa-list"></i>
+			<div	id='option_box' class='option_box'>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+				<ul>
+					<li onclick='show_about_developer()'>ABOUT DEVELOPER</li>
+					<li>MOSQUE</li>
+					<li>RESTAURANTS</li>
+				</ul>
+			</div>
+		</label>
+		
+		
+		<center>
+			<p id='get_clock'></p>
+		</center>
+		
+		
+		
+		<div class='box' id='box1'>
+			
+			<i id='icon' class="fas fa-map-marked-alt"></i>
+			<br>
+			<font class='text_style' id='get_location'>Location</font>
+		</div>
+		
+		
+		<div class='box' id='box2'>
+			<i id='icon' class="far fa-calendar-alt"></i>
+			<br>
+			<font class='text_style' id='get_date'>date</font>
+		</div>
+	
+		
+		
+		<br>
+		
+		<br>
+		<p class='pray_time' id='get_imsak'>subuh</p>
+		<p class='pray_time' id='get_subuh'>subuh</p>
+		<p  class='pray_time' id='get_zuhur'>zuhur</p>
+		<p class='pray_time' id='get_asar'>asar</p>
+		<p class='pray_time' id='get_maghrib'>maghrib</p>
+		<p class='pray_time' id='get_isha'>isha</p>
+	</body>
+</html>
