@@ -232,7 +232,10 @@
 		var mask = 'https://cors-anywhere.herokuapp.com/';
 		var selangor_api = 'https://api.azanpro.com/times/today.json?zone=sgr02&format=24-hour';
 		
-		
+		function download()
+			{
+				window.open('https://github.com/wanZ772/azan_app/raw/main/azan.apk', '_SELF');
+			}
 		page.style.setProperty('--developer_info', 'hidden');
 		
 		function	show_about_developer()
@@ -352,7 +355,8 @@
 		<br>
 		<hr>
 		<center>
-			<div id='download_button'>
+			<a href='https://github.com/wanZ772/azan_app/raw/main/azan.apk'>
+			<div id='download_button' onclick='download()'>
 				<br>
 				<br>
 	
